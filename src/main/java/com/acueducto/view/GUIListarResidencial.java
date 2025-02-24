@@ -10,9 +10,6 @@ public class GUIListarResidencial extends javax.swing.JFrame {
 
     private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
 
-    /**
-     * Creates new form GUIListarResidencial
-     */
     public GUIListarResidencial() {
         initComponents();
         setLocationRelativeTo(null);
@@ -120,13 +117,8 @@ public class GUIListarResidencial extends javax.swing.JFrame {
 
     private void setResidencialesToTable(List<Residencial> residenciales) {
 
-        // Obtén el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) tblResidencial.getModel();
-
-        // Limpia el modelo (elimina todas las filas existentes)
         model.setRowCount(0);
-
-        // Agrega las filas con los datos de la lista
         for (Residencial red : residenciales) {
             Object[] row = {
                 red.getPropietario(),
@@ -138,7 +130,7 @@ public class GUIListarResidencial extends javax.swing.JFrame {
                 red.getSubsidio(),
                 red.getTipoVivienda()
             };
-            model.addRow(row); // Agrega la fila al modelo
+            model.addRow(row);
         }
     }
 

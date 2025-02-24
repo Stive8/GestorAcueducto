@@ -1,5 +1,6 @@
 package com.acueducto.service;
 
+import com.acueducto.exceptions.PredioException;
 import com.acueducto.model.Comercial;
 import com.acueducto.model.LicenciaComercial;
 import com.acueducto.model.Predio;
@@ -20,9 +21,54 @@ public class ServicioAcueducto implements IServicioAcueducto {
     }
 
     @Override
-    public Residencial crearResidencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
-        Residencial residencial = new Residencial(subsidio, tipoVivienda, propietario, direccion, fechaRegistro, estadoCuenta, estrato, consumo);
-        return residencial;
+    public Residencial crearResidencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) throws PredioException {
+
+        if (propietario == null || propietario.trim().isEmpty()) {
+            throw new PredioException("El Propietario no puede estar vacío.");
+        }
+
+        if (direccion == null || direccion.trim().isEmpty()) {
+            throw new PredioException("La direccion no puede estar vacío.");
+        }
+
+        if (String.valueOf(estrato).equalsIgnoreCase("Seleccione una opcion")) {
+            throw new PredioException("Debe escoger un estrato válido.");
+        }
+
+        if (consumo <= 0) {
+            throw new PredioException("El consumo debe ser mayor que cero.");
+        }
+
+        if (String.valueOf(subsidio).equalsIgnoreCase("Seleccione una opcion")) {
+            throw new PredioException("Debe escoger un subsidio válido.");
+        }
+        int subsidioFinal;
+        if (String.valueOf(subsidio).equalsIgnoreCase("No Aplica")) {
+            subsidioFinal = 0;
+        }
+
+        if (tipoVivienda == null || tipoVivienda.trim().isEmpty()) {
+            throw new PredioException("El tipo de vivienda no puede estar vacío.");
+        }
+
+        return new Residencial(subsidio, tipoVivienda, propietario, direccion, fechaRegistro, estadoCuenta, estrato, consumo);
+    }
+
+    @Override
+    public void inhabilitarResidencial(String nombrePropietario) throws PredioException{
+        
+        for (Residencial predio : prediosResidenciales){
+            if (predio.getPropietario().equalsIgnoreCase(nombrePropietario)){
+                predio.setEstadoCuenta("INAC");
+                return;
+            }
+        }
+        
+        throw new PredioException("No se ha encontrado el propietario.");
+
+        
+        
+
     }
 
     @Override
@@ -36,9 +82,9 @@ public class ServicioAcueducto implements IServicioAcueducto {
         predios.add(residencial);
         prediosResidenciales.add(residencial);
     }
-    
+
     @Override
-    public List <Residencial> getResidencial(){
+    public List<Residencial> getResidencial() {
         return prediosResidenciales;
     }
 
