@@ -1,6 +1,6 @@
 package com.acueducto.model;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 
 public class Comercial extends Predio{
@@ -10,7 +10,7 @@ public class Comercial extends Predio{
     private String representanteLegal;
     private LicenciaComercial licenciaComercial;
 
-    public Comercial(String tipoComercio, double impuesto, String representanteLegal, LicenciaComercial licenciaComercial, String propietario, String direccion, LocalTime fechaRegistro, String estadoCuenta, int estrato, double consumo) {
+    public Comercial(String tipoComercio, double impuesto, String representanteLegal, LicenciaComercial licenciaComercial, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
         super(propietario, direccion, fechaRegistro, estadoCuenta, estrato, consumo);
         this.tipoComercio = tipoComercio;
         this.impuesto = impuesto;

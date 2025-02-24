@@ -6,12 +6,12 @@ public abstract class Predio {
 
     private String propietario;
     private String direccion;
-    private LocalTime fechaRegistro;
+    private LocalDate fechaRegistro;
     private String estadoCuenta;
     private int estrato;
     private double consumo;
 
-    public Predio(String propietario, String direccion, LocalTime fechaRegistro, String estadoCuenta, int estrato, double consumo) {
+    public Predio(String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
         this.propietario = propietario;
         this.direccion = direccion;
         this.fechaRegistro = fechaRegistro;
@@ -82,11 +82,11 @@ public abstract class Predio {
         this.direccion = direccion;
     }
 
-    public LocalTime getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(LocalTime fechaRegistro) {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

@@ -1,6 +1,14 @@
 package com.acueducto.view;
 
+import com.acueducto.model.Residencial;
+import com.acueducto.service.IServicioAcueducto;
+import com.acueducto.service.ServicioAcueducto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 public class GUIListarResidencial extends javax.swing.JFrame {
+
+    private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
 
     /**
      * Creates new form GUIListarResidencial
@@ -15,22 +23,65 @@ public class GUIListarResidencial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblResidencial = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listado Predio Residencial");
+
+        tblResidencial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Propietario", "Dirección", "Fecha Creacion", "Estado Cuenta", "Estrato", "Consumo", "Subsidio", "Tipo Vivienda"
+            }
+        ));
+        jScrollPane1.setViewportView(tblResidencial);
+
+        jButton1.setText("Listar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+        List residenciales = servicioAcueducto.getResidencial();
+        setResidencialesToTable(residenciales);
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -67,6 +118,33 @@ public class GUIListarResidencial extends javax.swing.JFrame {
         });
     }
 
+    private void setResidencialesToTable(List<Residencial> residenciales) {
+
+        // Obtén el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) tblResidencial.getModel();
+
+        // Limpia el modelo (elimina todas las filas existentes)
+        model.setRowCount(0);
+
+        // Agrega las filas con los datos de la lista
+        for (Residencial red : residenciales) {
+            Object[] row = {
+                red.getPropietario(),
+                red.getDireccion(),
+                red.getFechaRegistro(),
+                red.getEstadoCuenta(),
+                red.getEstrato(),
+                red.getConsumo(),
+                red.getSubsidio(),
+                red.getTipoVivienda()
+            };
+            model.addRow(row); // Agrega la fila al modelo
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblResidencial;
     // End of variables declaration//GEN-END:variables
 }

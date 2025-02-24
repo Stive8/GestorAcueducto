@@ -1,14 +1,14 @@
 package com.acueducto.model;
 
-import java.time.LocalTime;
+import java.time.*;
 
 public class Residencial extends Predio implements ISubsidiable {
 
     private int subsidio;
     private String tipoVivienda;
 
-    public Residencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalTime fechaRegistro, String estadoCuenta, int estrato, double consumo) {
-        super(propietario, direccion, fechaRegistro, estadoCuenta, estrato, consumo);
+    public Residencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
+        super(propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
         this.subsidio = subsidio;
         this.tipoVivienda = tipoVivienda;
     }
