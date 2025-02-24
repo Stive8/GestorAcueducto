@@ -11,9 +11,9 @@ import java.util.List;
 
 public class ServicioAcueducto implements IServicioAcueducto {
 
-    private static List<Predio> predios = new ArrayList();
-    private static List<Comercial> prediosComerciales = new ArrayList();
-    private static List<Residencial> prediosResidenciales = new ArrayList();
+    private static List<Predio> predios = new ArrayList<>();
+    private static List<Comercial> prediosComerciales = new ArrayList<>();
+    private static List<Residencial> prediosResidenciales = new ArrayList<>();
 
     @Override
     public void crearComercial(String tipoComercio, double impuesto, String representanteLegal, LicenciaComercial licenciaComercial, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
@@ -42,9 +42,8 @@ public class ServicioAcueducto implements IServicioAcueducto {
         if (String.valueOf(subsidio).equalsIgnoreCase("Seleccione una opcion")) {
             throw new PredioException("Debe escoger un subsidio válido.");
         }
-        int subsidioFinal;
         if (String.valueOf(subsidio).equalsIgnoreCase("No Aplica")) {
-            subsidioFinal = 0;
+            subsidio = 0;
         }
 
         if (tipoVivienda == null || tipoVivienda.trim().isEmpty()) {

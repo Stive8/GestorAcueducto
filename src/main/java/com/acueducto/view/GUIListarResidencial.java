@@ -3,6 +3,7 @@ package com.acueducto.view;
 import com.acueducto.model.Residencial;
 import com.acueducto.service.IServicioAcueducto;
 import com.acueducto.service.ServicioAcueducto;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,6 +14,9 @@ public class GUIListarResidencial extends javax.swing.JFrame {
     public GUIListarResidencial() {
         initComponents();
         setLocationRelativeTo(null);
+        btnGrupo.add(rbtnActivos);
+        btnGrupo.add(rbtnInactivos);
+        btnGrupo.add(rbtnTodos);
 
     }
 
@@ -20,9 +24,13 @@ public class GUIListarResidencial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrupo = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblResidencial = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        rbtnTodos = new javax.swing.JRadioButton();
+        rbtnActivos = new javax.swing.JRadioButton();
+        rbtnInactivos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listado Predio Residencial");
@@ -44,6 +52,13 @@ public class GUIListarResidencial extends javax.swing.JFrame {
             }
         });
 
+        rbtnTodos.setSelected(true);
+        rbtnTodos.setText("Todos");
+
+        rbtnActivos.setText("Activos");
+
+        rbtnInactivos.setText("Inactivos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -51,33 +66,60 @@ public class GUIListarResidencial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rbtnTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtnActivos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtnInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(rbtnTodos)
+                    .addComponent(rbtnActivos)
+                    .addComponent(rbtnInactivos))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        List<Residencial> residenciales = servicioAcueducto.getResidencial();
+        List<Residencial> filtrados = new ArrayList<>();
 
-        List residenciales = servicioAcueducto.getResidencial();
-        setResidencialesToTable(residenciales);
+        // Determinar el filtro seleccionado
+        if (rbtnActivos.isSelected()) {
+            for (Residencial red : residenciales) {
+                if (red.getEstadoCuenta().equalsIgnoreCase("AC")) { // Filtrar activos
+                    filtrados.add(red);
+                }
+            }
+        } else if (rbtnInactivos.isSelected()) {
+            for (Residencial red : residenciales) {
+                if (red.getEstadoCuenta().equalsIgnoreCase("INAC")) { // Filtrar inactivos
+                    filtrados.add(red);
+                }
+            }
+        } else {
+            // Si "Todos" está seleccionado, usar la lista original
+            filtrados = residenciales;
+        }
 
-
+        // Actualizar la tabla con los datos filtrados
+        setResidencialesToTable(filtrados);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -135,8 +177,12 @@ public class GUIListarResidencial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbtnActivos;
+    private javax.swing.JRadioButton rbtnInactivos;
+    private javax.swing.JRadioButton rbtnTodos;
     private javax.swing.JTable tblResidencial;
     // End of variables declaration//GEN-END:variables
 }
