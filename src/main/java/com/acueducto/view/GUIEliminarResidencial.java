@@ -8,9 +8,6 @@ public class GUIEliminarResidencial extends javax.swing.JFrame {
 
     IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
 
-    /**
-     * Creates new form GUIEliminarResidencial
-     */
     public GUIEliminarResidencial() {
         initComponents();
         setLocationRelativeTo(null);
