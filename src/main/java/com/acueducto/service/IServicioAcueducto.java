@@ -16,6 +16,6 @@ public interface IServicioAcueducto {
     public void adicionarResidencial (Residencial residencial);
     public List <Residencial> getResidencial();
     public void inhabilitarResidencial(String nombrePropietario) throws PredioException;
-    
+    public void inhabilitarComercial(String nombrePropietario) throws PredioException;
     
 }

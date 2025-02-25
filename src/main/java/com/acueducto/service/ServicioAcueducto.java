@@ -64,10 +64,19 @@ public class ServicioAcueducto implements IServicioAcueducto {
         }
         
         throw new PredioException("No se ha encontrado el propietario.");
-
+    }
+    
+    @Override
+    public void inhabilitarComercial(String nombrePropietario) throws PredioException{
         
+        for (Residencial predio : prediosResidenciales){
+            if (predio.getPropietario().equalsIgnoreCase(nombrePropietario)){
+                predio.setEstadoCuenta("INAC");
+                return;
+            }
+        }
         
-
+        throw new PredioException("No se ha encontrado el propietario.");
     }
 
     @Override

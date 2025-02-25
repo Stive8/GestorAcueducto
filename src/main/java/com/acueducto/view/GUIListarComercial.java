@@ -17,7 +17,9 @@ public class GUIListarComercial extends javax.swing.JFrame {
     public GUIListarComercial() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        btnGrupo.add(rbtnActivos);
+        btnGrupo.add(rbtnInactivos);
+        btnGrupo.add(rbtnTodos);
 
     }
 
@@ -25,12 +27,13 @@ public class GUIListarComercial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrupo = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblComercial = new javax.swing.JTable();
+        btnListar = new javax.swing.JButton();
         rbtnTodos = new javax.swing.JRadioButton();
         rbtnActivos = new javax.swing.JRadioButton();
         rbtnInactivos = new javax.swing.JRadioButton();
-        btnListar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listado Predio Comercial");
@@ -48,28 +51,6 @@ public class GUIListarComercial extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblComercial);
 
-        rbtnTodos.setSelected(true);
-        rbtnTodos.setText("Todos");
-        rbtnTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnTodosActionPerformed(evt);
-            }
-        });
-
-        rbtnActivos.setText("Activos");
-        rbtnActivos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnActivosActionPerformed(evt);
-            }
-        });
-
-        rbtnInactivos.setText("Inactivos");
-        rbtnInactivos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnInactivosActionPerformed(evt);
-            }
-        });
-
         btnListar.setText("Listar");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,20 +58,26 @@ public class GUIListarComercial extends javax.swing.JFrame {
             }
         });
 
+        rbtnTodos.setText("Todos");
+
+        rbtnActivos.setText("Activos");
+
+        rbtnInactivos.setText("Inactivos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(rbtnTodos)
-                        .addGap(18, 18, 18)
+                        .addGap(29, 29, 29)
                         .addComponent(rbtnActivos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(rbtnInactivos)
-                        .addGap(638, 638, 638)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnListar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -102,27 +89,15 @@ public class GUIListarComercial extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnListar)
                     .addComponent(rbtnTodos)
                     .addComponent(rbtnActivos)
-                    .addComponent(rbtnInactivos)
-                    .addComponent(btnListar))
+                    .addComponent(rbtnInactivos))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rbtnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnTodosActionPerformed
-
-    private void rbtnActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnActivosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnActivosActionPerformed
-
-    private void rbtnInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnInactivosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnInactivosActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
@@ -207,6 +182,7 @@ public class GUIListarComercial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JButton btnListar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rbtnActivos;
@@ -214,6 +190,7 @@ public class GUIListarComercial extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnTodos;
     private javax.swing.JTable tblComercial;
     // End of variables declaration//GEN-END:variables
+
 
     
 

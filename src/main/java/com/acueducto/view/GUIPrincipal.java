@@ -1,6 +1,7 @@
 package com.acueducto.view;
 
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 public class GUIPrincipal extends javax.swing.JFrame {
 
@@ -26,7 +27,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        MnAcercaDe = new javax.swing.JMenuItem();
 
         jMenu4.setText("jMenu4");
 
@@ -104,9 +105,14 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
         jMenu5.setText("Ayuda");
 
-        jMenuItem8.setText("Acerca de ...");
-        jMenuItem8.setToolTipText("");
-        jMenu5.add(jMenuItem8);
+        MnAcercaDe.setText("Acerca de ...");
+        MnAcercaDe.setToolTipText("");
+        MnAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnAcercaDeActionPerformed(evt);
+            }
+        });
+        jMenu5.add(MnAcercaDe);
 
         jMenuBar1.add(jMenu5);
 
@@ -167,6 +173,11 @@ public class GUIPrincipal extends javax.swing.JFrame {
         gui.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void MnAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnAcercaDeActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Brahyan Ortegon"+"\n"+"Juanita Rodriguez"+"\n"+"Stiven Alvarez");
+    }//GEN-LAST:event_MnAcercaDeActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -200,6 +211,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MnAcercaDe;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -213,6 +225,5 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }
