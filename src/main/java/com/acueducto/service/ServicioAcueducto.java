@@ -87,4 +87,9 @@ public class ServicioAcueducto implements IServicioAcueducto {
         return prediosResidenciales;
     }
 
+    @Override
+    public List<Comercial> getComercial() {
+        return prediosComerciales;
+    }
+
 }

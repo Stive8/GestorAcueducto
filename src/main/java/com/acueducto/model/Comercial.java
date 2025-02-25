@@ -17,6 +17,8 @@ public class Comercial extends Predio{
         this.representanteLegal = representanteLegal;
         this.licenciaComercial = licenciaComercial;
     }
+    
+    
 
     public String getTipoComercio() {
         return tipoComercio;

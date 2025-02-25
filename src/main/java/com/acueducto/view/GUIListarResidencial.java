@@ -54,6 +54,11 @@ public class GUIListarResidencial extends javax.swing.JFrame {
 
         rbtnTodos.setSelected(true);
         rbtnTodos.setText("Todos");
+        rbtnTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTodosActionPerformed(evt);
+            }
+        });
 
         rbtnActivos.setText("Activos");
 
@@ -121,6 +126,10 @@ public class GUIListarResidencial extends javax.swing.JFrame {
         // Actualizar la tabla con los datos filtrados
         setResidencialesToTable(filtrados);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void rbtnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnTodosActionPerformed
 
     /**
      * @param args the command line arguments

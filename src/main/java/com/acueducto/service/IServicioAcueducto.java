@@ -11,6 +11,7 @@ public interface IServicioAcueducto {
     
     public void crearComercial(String tipoComercio, double impuesto, String representanteLegal, LicenciaComercial licenciaComercial, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo);
     public void adicionarComercial (Comercial comercial);
+    public List <Comercial> getComercial();
     public Residencial crearResidencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo)throws PredioException;
     public void adicionarResidencial (Residencial residencial);
     public List <Residencial> getResidencial();
