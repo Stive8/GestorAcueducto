@@ -9,15 +9,16 @@ import javax.swing.JOptionPane;
 
 public class GUICrearComercial extends javax.swing.JFrame {
 
-    private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
     private LicenciaComercial licenciaComercial;
-    
+    private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
+
     /**
      * Creates new form GUICrearComercial
      */
     public GUICrearComercial() {
         initComponents();
         setLocationRelativeTo(null);
+        txtEstadoCuenta.setText("AC");
 
     }
 
@@ -28,7 +29,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -36,7 +36,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtPropietario = new javax.swing.JTextField();
-        txtFechaRegistro = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         txtEstadoCuenta = new javax.swing.JTextField();
         txtConsumo = new javax.swing.JTextField();
@@ -47,7 +46,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
         jComboBoxEstrato = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         btnCrear = new javax.swing.JButton();
-        BtnLicenciaComercial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Crear Predio Comercial");
@@ -58,8 +56,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
         jLabel2.setText("Propietario");
 
         jLabel3.setText("Direccion");
-
-        jLabel4.setText("Fecha Registro");
 
         jLabel5.setText("Estado Cuenta");
 
@@ -79,18 +75,13 @@ public class GUICrearComercial extends javax.swing.JFrame {
             }
         });
 
-        txtFechaRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaRegistroActionPerformed(evt);
-            }
-        });
-
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDireccionActionPerformed(evt);
             }
         });
 
+        txtEstadoCuenta.setEditable(false);
         txtEstadoCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEstadoCuentaActionPerformed(evt);
@@ -139,13 +130,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
             }
         });
 
-        BtnLicenciaComercial.setText("Licencia Comercial");
-        BtnLicenciaComercial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLicenciaComercialActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,57 +139,52 @@ public class GUICrearComercial extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(74, 74, 74)
-                        .addComponent(txtPropietario))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(82, 82, 82)
-                        .addComponent(txtDireccion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(55, 55, 55)
-                        .addComponent(txtFechaRegistro))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(53, 53, 53)
-                        .addComponent(txtTiempoComercio))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(26, 26, 26)
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 55, Short.MAX_VALUE)
-                                .addComponent(jLabel11)
+                                .addComponent(jLabel2)
+                                .addGap(74, 74, 74)
+                                .addComponent(txtPropietario))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(82, 82, 82)
+                                .addComponent(txtDireccion))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtRepresentanteLegal)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEstadoCuenta)
-                            .addComponent(jComboBoxEstrato, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(53, 53, 53)
+                                .addComponent(txtTiempoComercio))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtRepresentanteLegal)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(56, 56, 56)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEstadoCuenta)
+                                    .addComponent(jComboBoxEstrato, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCrear)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(BtnLicenciaComercial)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCrear)
-                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,10 +199,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -251,10 +226,8 @@ public class GUICrearComercial extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(txtRepresentanteLegal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCrear)
-                    .addComponent(BtnLicenciaComercial))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(btnCrear)
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pack();
@@ -262,28 +235,31 @@ public class GUICrearComercial extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         try {
-        String propietario = txtPropietario.getText().toString();
-        String direccion = txtDireccion.getText().toString();
-        String estadoCuenta = txtEstadoCuenta.getText().toString();
-        int estrato = Integer.parseInt(jComboBoxEstrato.getSelectedItem().toString());
-        double consumo = Double.parseDouble(txtConsumo.getText().toString());
-        String tipoComercio = txtTiempoComercio.getText().toString();
-        double impuesto = Double.parseDouble(txtImpuesto.getText().toString());
-        String representanteLegal = txtRepresentanteLegal.getText().toString();
-        
+            String propietario = txtPropietario.getText().trim();
+            String direccion = txtDireccion.getText().trim();
+            String estadoCuenta = txtEstadoCuenta.getText().trim();
+            int estrato = Integer.parseInt(jComboBoxEstrato.getSelectedItem().toString());
+            double consumo = Double.parseDouble(txtConsumo.getText().trim());
+            String tipoComercio = txtTiempoComercio.getText().trim();
+            double impuesto = Double.parseDouble(txtImpuesto.getText().trim());
+            String representanteLegal = txtRepresentanteLegal.getText().trim();
 
-        if (propietario.isEmpty() || direccion.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El nombre y la dirección son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (propietario.isEmpty() || direccion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El nombre y la dirección son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear el objeto Comercial SIN licencia
+            Comercial comercial = new Comercial(tipoComercio, impuesto, representanteLegal, null, propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
+
+            // Pasar el objeto Comercial al formulario de Licencia
+            GUICrearLicenciaComercial gui = new GUICrearLicenciaComercial(comercial, servicioAcueducto);
+            gui.setVisible(true);
+            this.dispose(); // Cerrar este formulario
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al crear el comercial: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        Comercial comercial = new Comercial(tipoComercio, impuesto, representanteLegal, licenciaComercial, propietario, direccion, LocalDate.MIN, estadoCuenta, estrato, consumo);
-        servicioAcueducto.adicionarComercial(comercial);
-        JOptionPane.showMessageDialog(this, "Comercial creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al crear el comercial: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtPropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPropietarioActionPerformed
@@ -293,10 +269,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
-
-    private void txtFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaRegistroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaRegistroActionPerformed
 
     private void txtEstadoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoCuentaActionPerformed
         // TODO add your handling code here:
@@ -321,12 +293,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
     private void txtRepresentanteLegalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRepresentanteLegalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRepresentanteLegalActionPerformed
-
-    private void BtnLicenciaComercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLicenciaComercialActionPerformed
-        // TODO add your handling code here:
-        GUICrearLicenciaComercial gui = new GUICrearLicenciaComercial();
-        gui.setVisible(true);
-    }//GEN-LAST:event_BtnLicenciaComercialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,7 +330,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnLicenciaComercial;
     private javax.swing.JButton btnCrear;
     private javax.swing.JComboBox<String> jComboBoxEstrato;
     private javax.swing.JLabel jLabel1;
@@ -373,7 +338,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -382,7 +346,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
     private javax.swing.JTextField txtConsumo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEstadoCuenta;
-    private javax.swing.JTextField txtFechaRegistro;
     private javax.swing.JTextField txtImpuesto;
     private javax.swing.JTextField txtPropietario;
     private javax.swing.JTextField txtRepresentanteLegal;
