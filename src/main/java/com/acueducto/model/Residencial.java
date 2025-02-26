@@ -21,7 +21,7 @@ public class Residencial extends Predio implements ISubsidiable {
             case 2:
                 return 0.05;
             case 3:
-                return 0.08; 
+                return 0.08;
             default:
                 return 0;
         }
@@ -29,17 +29,9 @@ public class Residencial extends Predio implements ISubsidiable {
 
     @Override
     public double calcularPago() {
-
-        double tarifa = definirTarifa();
-        double descuento = calcularSubsidio();
-        double tarifaFinal = tarifa * getConsumo();
-
-        return tarifaFinal - (tarifaFinal * descuento);
-
+        double tarifaFinal = definirTarifa() * getConsumo();
+        return tarifaFinal * (1 - calcularSubsidio());
     }
-    
-    
-  
 
     public int getSubsidio() {
         return subsidio;

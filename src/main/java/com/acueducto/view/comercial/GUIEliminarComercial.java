@@ -305,7 +305,7 @@ public class GUIEliminarComercial extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (PredioException ex) {
-            Logger.getLogger(GUIEliminarComercial.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No se ha encontrado el Predio", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInhabilitarActionPerformed
 
