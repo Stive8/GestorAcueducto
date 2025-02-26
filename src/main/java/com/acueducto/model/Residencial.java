@@ -7,8 +7,8 @@ public class Residencial extends Predio implements ISubsidiable {
     private int subsidio;
     private String tipoVivienda;
 
-    public Residencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
-        super(propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
+    public Residencial(double valorFactura, int id, int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
+        super(valorFactura, id, propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
         this.subsidio = subsidio;
         this.tipoVivienda = tipoVivienda;
     }
@@ -37,6 +37,8 @@ public class Residencial extends Predio implements ISubsidiable {
         return tarifaFinal - (tarifaFinal * descuento);
 
     }
+    
+    
   
 
     public int getSubsidio() {

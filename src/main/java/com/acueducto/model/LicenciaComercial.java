@@ -16,6 +16,9 @@ public class LicenciaComercial {
         this.fechaVencimiento = fechaVencimiento;
         this.estado = estado;
     }
+    
+    
+    
 
     public String getNumeroLicencia() {
         return numeroLicencia;

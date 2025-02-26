@@ -4,20 +4,24 @@ import java.time.*;
 
 public abstract class Predio {
 
+    private int id;
     private String propietario;
     private String direccion;
     private LocalDate fechaRegistro;
     private String estadoCuenta;
     private int estrato;
     private double consumo;
+    private double valorFactura;
 
-    public Predio(String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
+    public Predio(double valorFactura, int id, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
+        this.id = id;
         this.propietario = propietario;
         this.direccion = direccion;
         this.fechaRegistro = fechaRegistro;
         this.estadoCuenta = estadoCuenta;
         this.estrato = estrato;
         this.consumo = consumo;
+        this.valorFactura = valorFactura;
     }
 
     public double definirTarifa() {
@@ -53,17 +57,33 @@ public abstract class Predio {
                 break;
             default:
                 tarifa = 0;
-                
+
         }
-        
+
         return tarifa;
 
     }
-    
-    public double calcularPago(){
-        
+
+    public double calcularPago() {
+
         double tarifa = definirTarifa();
-        return tarifa*getConsumo();
+        return tarifa * getConsumo();
+    }
+
+    public double getValorFactura() {
+        return valorFactura;
+    }
+
+    public void setValorFactura(double valorFactura) {
+        this.valorFactura = valorFactura;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPropietario() {

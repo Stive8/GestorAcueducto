@@ -1,4 +1,4 @@
-package com.acueducto.view;
+package com.acueducto.view.comercial;
 
 import com.acueducto.model.Comercial;
 import com.acueducto.model.LicenciaComercial;

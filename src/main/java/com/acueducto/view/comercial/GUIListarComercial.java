@@ -1,6 +1,7 @@
-package com.acueducto.view;
+package com.acueducto.view.comercial;
 
 import com.acueducto.model.Comercial;
+import com.acueducto.model.Predio;
 import com.acueducto.service.IServicioAcueducto;
 import com.acueducto.service.ServicioAcueducto;
 import java.util.ArrayList;
@@ -9,9 +10,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class GUIListarComercial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GUIListarComercial
-     */
     private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
 
     public GUIListarComercial() {
@@ -40,13 +38,10 @@ public class GUIListarComercial extends javax.swing.JFrame {
 
         tblComercial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Propietario", "Direccion", "Fecha Creacion", "Estado Cuenta", "Estrato", "Consumo", "Tipo Comercio", "Representante legal", "Impuesto", "Licenecia Comercial"
+                "id", "Propietario", "Direccion", "Fecha Creacion", "Estado Cuenta", "Estrato", "Consumo", "Tipo Comercio", "Representante legal", "Impuesto", "Licenecia Comercial", "Valor Factura"
             }
         ));
         jScrollPane1.setViewportView(tblComercial);
@@ -69,24 +64,26 @@ public class GUIListarComercial extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addComponent(rbtnTodos)
                         .addGap(29, 29, 29)
                         .addComponent(rbtnActivos)
                         .addGap(18, 18, 18)
                         .addComponent(rbtnInactivos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(613, 613, 613)
                         .addComponent(btnListar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnListar)
@@ -101,18 +98,18 @@ public class GUIListarComercial extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
-        List<Comercial> comerciales = servicioAcueducto.getComercial();
-        List<Comercial> filtrados = new ArrayList<>();
+        List<Predio> comerciales = servicioAcueducto.getComercial();
+        List<Predio> filtrados = new ArrayList<>();
 
         // Filtrar según el estado de cuenta
         if (rbtnActivos.isSelected()) {
-            for (Comercial com : comerciales) {
+            for (Predio com : comerciales) {
                 if (com.getEstadoCuenta().equalsIgnoreCase("AC")) {
                     filtrados.add(com);
                 }
             }
         } else if (rbtnInactivos.isSelected()) {
-            for (Comercial com : comerciales) {
+            for (Predio com : comerciales) {
                 if (com.getEstadoCuenta().equalsIgnoreCase("INAC")) {
                     filtrados.add(com);
                 }
@@ -125,30 +122,36 @@ public class GUIListarComercial extends javax.swing.JFrame {
         setComercialesToTable(filtrados);
     }//GEN-LAST:event_btnListarActionPerformed
 
-    private void setComercialesToTable(List<Comercial> residenciales) {
+    private void setComercialesToTable(List<Predio> predios) {
 
         DefaultTableModel model = (DefaultTableModel) tblComercial.getModel();
         model.setRowCount(0);
-        for (Comercial red : residenciales) {
-            Object[] row = {
-                red.getPropietario(),
-                red.getDireccion(),
-                red.getFechaRegistro(),
-                red.getEstadoCuenta(),
-                red.getEstrato(),
-                red.getConsumo(),
-                red.getTipoComercio(),
-                red.getRepresentanteLegal(),
-                red.getImpuesto(),
-                red.getLicenciaComercial().getNumeroLicencia()
-            };
-            model.addRow(row);
+        for (Predio pre : predios) {
+            if (pre instanceof Comercial) {
+                Comercial comercial = (Comercial) pre;
+
+                Object[] row = {
+                    comercial.getId(),
+                    comercial.getPropietario(),
+                    comercial.getDireccion(),
+                    comercial.getFechaRegistro(),
+                    comercial.getEstadoCuenta(),
+                    comercial.getEstrato(),
+                    comercial.getConsumo(),
+                    comercial.getTipoComercio(),
+                    comercial.getRepresentanteLegal(),
+                    comercial.getImpuesto(),
+                    comercial.getLicenciaComercial() != null ? comercial.getLicenciaComercial().getNumeroLicencia() : "No tiene",
+                    comercial.calcularPago()
+                };
+                model.addRow(row);
+            }
         }
     }
-        
-        /**
-         * @param args the command line arguments
-         */
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -190,8 +193,5 @@ public class GUIListarComercial extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnTodos;
     private javax.swing.JTable tblComercial;
     // End of variables declaration//GEN-END:variables
-
-
-    
 
 }

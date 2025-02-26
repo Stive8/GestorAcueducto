@@ -1,5 +1,6 @@
-package com.acueducto.view;
+package com.acueducto.view.comercial;
 
+import com.acueducto.exceptions.PredioException;
 import com.acueducto.model.Comercial;
 import com.acueducto.model.LicenciaComercial;
 import com.acueducto.service.IServicioAcueducto;
@@ -9,17 +10,12 @@ import javax.swing.JOptionPane;
 
 public class GUICrearComercial extends javax.swing.JFrame {
 
-    private LicenciaComercial licenciaComercial;
     private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
 
-    /**
-     * Creates new form GUICrearComercial
-     */
     public GUICrearComercial() {
         initComponents();
         setLocationRelativeTo(null);
         txtEstadoCuenta.setText("AC");
-
     }
 
     @SuppressWarnings("unchecked")
@@ -244,21 +240,17 @@ public class GUICrearComercial extends javax.swing.JFrame {
             double impuesto = Double.parseDouble(txtImpuesto.getText().trim());
             String representanteLegal = txtRepresentanteLegal.getText().trim();
 
-            if (propietario.isEmpty() || direccion.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "El nombre y la dirección son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            Comercial comercial = servicioAcueducto.crearComercial(tipoComercio, impuesto, representanteLegal, null, propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
 
-            // Crear el objeto Comercial SIN licencia
-            Comercial comercial = new Comercial(tipoComercio, impuesto, representanteLegal, null, propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
-
-            // Pasar el objeto Comercial al formulario de Licencia
+            
             GUICrearLicenciaComercial gui = new GUICrearLicenciaComercial(comercial, servicioAcueducto);
             gui.setVisible(true);
-            this.dispose(); // Cerrar este formulario
+            this.dispose();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al crear el comercial: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: Ingrese valores validos para el Consumo, Subsidio y Estrato.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (PredioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 

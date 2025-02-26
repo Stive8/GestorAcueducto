@@ -1,4 +1,4 @@
-package com.acueducto.view;
+package com.acueducto.view.residencial;
 
 import com.acueducto.exceptions.PredioException;
 import com.acueducto.model.Residencial;
@@ -13,9 +13,6 @@ public class GUICrearResidencial extends javax.swing.JFrame {
 
     private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
 
-    /**
-     * Creates new form GUICrearResidencial
-     */
     public GUICrearResidencial() {
         initComponents();
         setLocationRelativeTo(null);
@@ -202,9 +199,6 @@ public class GUICrearResidencial extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

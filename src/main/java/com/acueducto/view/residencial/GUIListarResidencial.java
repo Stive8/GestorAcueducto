@@ -1,5 +1,6 @@
-package com.acueducto.view;
+package com.acueducto.view.residencial;
 
+import com.acueducto.model.Predio;
 import com.acueducto.model.Residencial;
 import com.acueducto.service.IServicioAcueducto;
 import com.acueducto.service.ServicioAcueducto;
@@ -40,7 +41,7 @@ public class GUIListarResidencial extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Propietario", "Dirección", "Fecha Creacion", "Estado Cuenta", "Estrato", "Consumo", "Subsidio", "Tipo Vivienda"
+                "ID", "Propietario", "Dirección", "Fecha Creacion", "Estado Cuenta", "Estrato", "Consumo", "Subsidio", "Tipo Vivienda", "Valor Factura"
             }
         ));
         jScrollPane1.setViewportView(tblResidencial);
@@ -102,10 +103,17 @@ public class GUIListarResidencial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        List<Residencial> residenciales = servicioAcueducto.getResidencial();
+        List<Predio> predios = servicioAcueducto.getResidencial(); // Devuelve List<Predio>
+        List<Residencial> residenciales = new ArrayList<>();
+
+        for (Predio pre : predios) {
+            if (pre instanceof Residencial) {
+                residenciales.add((Residencial) pre); // Casteo a Residencial
+            }
+        }
+
         List<Residencial> filtrados = new ArrayList<>();
 
-        // Determinar el filtro seleccionado
         if (rbtnActivos.isSelected()) {
             for (Residencial red : residenciales) {
                 if (red.getEstadoCuenta().equalsIgnoreCase("AC")) { // Filtrar activos
@@ -119,12 +127,12 @@ public class GUIListarResidencial extends javax.swing.JFrame {
                 }
             }
         } else {
-            // Si "Todos" está seleccionado, usar la lista original
             filtrados = residenciales;
         }
 
-        // Actualizar la tabla con los datos filtrados
         setResidencialesToTable(filtrados);
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void rbtnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodosActionPerformed
@@ -172,6 +180,7 @@ public class GUIListarResidencial extends javax.swing.JFrame {
         model.setRowCount(0);
         for (Residencial red : residenciales) {
             Object[] row = {
+                red.getId(),
                 red.getPropietario(),
                 red.getDireccion(),
                 red.getFechaRegistro(),
@@ -179,7 +188,8 @@ public class GUIListarResidencial extends javax.swing.JFrame {
                 red.getEstrato(),
                 red.getConsumo(),
                 red.getSubsidio(),
-                red.getTipoVivienda()
+                red.getTipoVivienda(),
+                red.calcularPago()
             };
             model.addRow(row);
         }

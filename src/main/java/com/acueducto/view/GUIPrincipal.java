@@ -1,5 +1,13 @@
 package com.acueducto.view;
 
+import com.acueducto.view.comercial.GUIBuscarComercial;
+import com.acueducto.view.residencial.GUIListarResidencial;
+import com.acueducto.view.residencial.GUIEliminarResidencial;
+import com.acueducto.view.residencial.GUICrearResidencial;
+import com.acueducto.view.comercial.GUIListarComercial;
+import com.acueducto.view.comercial.GUIEliminarComercial;
+import com.acueducto.view.comercial.GUICrearComercial;
+import com.acueducto.view.residencial.GUIBuscarResidencial;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
@@ -21,10 +29,12 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         MnAcercaDe = new javax.swing.JMenuItem();
@@ -65,6 +75,14 @@ public class GUIPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem3);
 
+        jMenuItem8.setText("Consultar");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
+
         jMenuItem4.setText("Eliminar");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +110,15 @@ public class GUIPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem7);
+
+        jMenuItem9.setText("Consultar");
+        jMenuItem9.setActionCommand("Consultar");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem9);
 
         jMenuItem6.setText("Eliminar");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -153,6 +180,8 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
+        GUIEliminarComercial gui = new GUIEliminarComercial();
+        gui.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -175,8 +204,20 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
     private void MnAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnAcercaDeActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Brahyan Ortegon"+"\n"+"Juanita Rodriguez"+"\n"+"Stiven Alvarez");
+        JOptionPane.showMessageDialog(this, "Juanita Rodriguez" + "\n" + "Brayhan Ortegon" + "\n" + "Stiven Alvarez");
     }//GEN-LAST:event_MnAcercaDeActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        GUIBuscarResidencial gui = new GUIBuscarResidencial();
+        gui.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        GUIBuscarComercial gui = new GUIBuscarComercial();
+        gui.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -225,5 +266,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }
