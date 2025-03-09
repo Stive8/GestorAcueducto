@@ -24,8 +24,10 @@ public interface IServicioAcueducto {
 
     public void inhabilitarPredio(int id) throws PredioException;
 
+    public void actualizarResidencial(int index, int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) throws PredioException;
+
     public int incrementarId();
-    
+
     public Predio buscarPredioPorId(int id);
 
 }

@@ -94,6 +94,50 @@ public class ServicioAcueducto implements IServicioAcueducto {
     }
 
     @Override
+    public void actualizarResidencial(int index, int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) throws PredioException {
+
+        if (propietario == null || propietario.trim().isEmpty()) {
+            throw new PredioException("El Propietario no puede estar vacío.");
+        }
+
+        if (direccion == null || direccion.trim().isEmpty()) {
+            throw new PredioException("La direccion no puede estar vacío.");
+        }
+
+        if (String.valueOf(estrato).equalsIgnoreCase("Seleccione una opcion")) {
+            throw new PredioException("Debe escoger un estrato válido.");
+        }
+
+        if (consumo <= 0) {
+            throw new PredioException("El consumo debe ser mayor que cero.");
+        }
+
+        if (String.valueOf(subsidio).equalsIgnoreCase("Seleccione una opcion")) {
+            throw new PredioException("Debe escoger un subsidio válido.");
+        }
+        if (String.valueOf(subsidio).equalsIgnoreCase("No Aplica")) {
+            subsidio = 0;
+        }
+
+        if (tipoVivienda == null || tipoVivienda.trim().isEmpty()) {
+            throw new PredioException("El tipo de vivienda no puede estar vacío.");
+        }
+
+        Residencial pre = (Residencial)predios.get(index);
+        pre.setConsumo(consumo);
+        pre.setDireccion(direccion);
+        pre.setEstadoCuenta(estadoCuenta);
+        pre.setEstrato(estrato);
+        pre.setFechaRegistro(fechaRegistro);
+        pre.setPropietario(propietario);
+        pre.setSubsidio(subsidio);
+        pre.setTipoVivienda(tipoVivienda);
+        double valorFactura = pre.calcularPago();
+        pre.setValorFactura(valorFactura);
+
+    }
+
+    @Override
     public void inhabilitarPredio(int id) throws PredioException {
 
         for (Predio predio : predios) {

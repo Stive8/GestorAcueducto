@@ -17,6 +17,12 @@ public class Comercial extends Predio {
         this.licenciaComercial = licenciaComercial;
     }
 
+    @Override
+    public double calcularPago() {
+        double tarifa = definirTarifa();
+        return tarifa + (tarifa * (impuesto / 100));
+    }
+
     public String getTipoComercio() {
         return tipoComercio;
     }

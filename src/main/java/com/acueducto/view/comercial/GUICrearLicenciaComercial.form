@@ -40,11 +40,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jFechaVencimiento" linkSize="2" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jComboBoxEstado" linkSize="2" alignment="0" pref="134" max="32767" attributes="0"/>
-                              <Component id="txtNumeroLicencia" linkSize="2" max="32767" attributes="0"/>
-                              <Component id="jFechaExpedicion" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jComboBoxEstado" linkSize="2" alignment="0" pref="134" max="32767" attributes="0"/>
+                          <Component id="txtNumeroLicencia" linkSize="2" max="32767" attributes="0"/>
+                          <Component id="jFechaExpedicion" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
