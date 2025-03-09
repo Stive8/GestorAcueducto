@@ -39,15 +39,17 @@
                           <Component id="jLabel8" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtPropietario" linkSize="2" alignment="1" max="32767" attributes="0"/>
-                          <Component id="txtDireccion" linkSize="2" alignment="1" max="32767" attributes="0"/>
-                          <Component id="txtEstado" linkSize="2" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" linkSize="2" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="txtConsumo" linkSize="2" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
-                          <Component id="jComboBox2" linkSize="2" alignment="1" min="-2" pref="208" max="-2" attributes="0"/>
-                          <Component id="txtTipoVivienda" linkSize="2" alignment="1" min="-2" pref="208" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtDireccion" linkSize="2" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtEstado" linkSize="2" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                              <Component id="jComboBox1" linkSize="2" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                              <Component id="txtConsumo" linkSize="2" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="jComboBox2" linkSize="2" alignment="1" min="-2" pref="208" max="-2" attributes="0"/>
+                              <Component id="txtTipoVivienda" linkSize="2" alignment="1" min="-2" pref="208" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtPropietario" alignment="1" min="-2" pref="208" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -58,46 +60,46 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPropietario" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtDireccion" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtEstado" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBox1" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtConsumo" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel8" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBox2" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel10" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtTipoVivienda" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCrear" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

@@ -5,6 +5,7 @@ import com.acueducto.model.LicenciaComercial;
 import com.acueducto.service.IServicioAcueducto;
 import com.acueducto.service.ServicioAcueducto;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
@@ -35,12 +36,12 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNumeroLicencia = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtFechaExpedicion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtFechaVencimiento = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxEstado = new javax.swing.JComboBox<>();
         btnCrearLicenciaComercial = new javax.swing.JButton();
+        jFechaExpedicion = new com.toedter.calendar.JDateChooser();
+        jFechaVencimiento = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,19 +58,7 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
 
         jLabel3.setText("Fecha de expedición");
 
-        txtFechaExpedicion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaExpedicionActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Fecha de vencimiento");
-
-        txtFechaVencimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaVencimientoActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Estado");
 
@@ -101,45 +90,53 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNumeroLicencia)
-                            .addComponent(txtFechaExpedicion)
-                            .addComponent(txtFechaVencimiento)
-                            .addComponent(jComboBoxEstado, 0, 134, Short.MAX_VALUE))))
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCrearLicenciaComercial)
-                .addGap(118, 118, 118))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBoxEstado, 0, 134, Short.MAX_VALUE)
+                                .addComponent(txtNumeroLicencia)
+                                .addComponent(jFechaExpedicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(btnCrearLicenciaComercial)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxEstado, jFechaExpedicion, jFechaVencimiento, jLabel2, jLabel3, jLabel4, jLabel5, txtNumeroLicencia});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNumeroLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtFechaExpedicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnCrearLicenciaComercial)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtNumeroLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jFechaExpedicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCrearLicenciaComercial)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxEstado, jFechaExpedicion, jFechaVencimiento, jLabel2, jLabel3, jLabel4, jLabel5, txtNumeroLicencia});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -148,14 +145,6 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroLicenciaActionPerformed
 
-    private void txtFechaExpedicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaExpedicionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaExpedicionActionPerformed
-
-    private void txtFechaVencimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaVencimientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaVencimientoActionPerformed
-
     private void jComboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxEstadoActionPerformed
@@ -163,8 +152,8 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
     private void btnCrearLicenciaComercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearLicenciaComercialActionPerformed
         try {
             String numeroLicencia = txtNumeroLicencia.getText().trim();
-            String fechaExpedicionStr = txtFechaExpedicion.getText().trim();
-            String fechaVencimientoStr = txtFechaVencimiento.getText().trim();
+            LocalDate fechaExpedicion = jFechaExpedicion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaVencimiento = jFechaVencimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             String estado = jComboBoxEstado.getSelectedItem().toString();
 
             if (numeroLicencia.isEmpty()) {
@@ -177,20 +166,9 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
                 return;
             }
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate fechaExpedicion, fechaVencimiento;
+            if (fechaExpedicion == null || fechaVencimiento == null) {
 
-            try {
-                fechaExpedicion = LocalDate.parse(fechaExpedicionStr, formatter);
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Formato de fecha de expedición incorrecto. Usa 'yyyy-MM-dd'.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            try {
-                fechaVencimiento = LocalDate.parse(fechaVencimientoStr, formatter);
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Formato de fecha de vencimiento incorrecto. Usa 'yyyy-MM-dd'.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debes seleccionar fechas validas", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -207,8 +185,10 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Comercial y Licencia creados exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             this.dispose(); // Cerrar la ventana
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Debe de seleccionar una fecha valida", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnCrearLicenciaComercialActionPerformed
@@ -251,13 +231,13 @@ public class GUICrearLicenciaComercial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearLicenciaComercial;
     private javax.swing.JComboBox<String> jComboBoxEstado;
+    private com.toedter.calendar.JDateChooser jFechaExpedicion;
+    private com.toedter.calendar.JDateChooser jFechaVencimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtFechaExpedicion;
-    private javax.swing.JTextField txtFechaVencimiento;
     private javax.swing.JTextField txtNumeroLicencia;
     // End of variables declaration//GEN-END:variables
 }

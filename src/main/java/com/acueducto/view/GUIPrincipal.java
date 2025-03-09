@@ -1,5 +1,6 @@
 package com.acueducto.view;
 
+import com.acueducto.model.Acueducto;
 import com.acueducto.view.comercial.GUIBuscarComercial;
 import com.acueducto.view.residencial.GUIListarResidencial;
 import com.acueducto.view.residencial.GUIEliminarResidencial;
@@ -38,6 +39,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         MnAcercaDe = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         jMenu4.setText("jMenu4");
 
@@ -112,7 +114,6 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem7);
 
         jMenuItem9.setText("Consultar");
-        jMenuItem9.setActionCommand("Consultar");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -140,6 +141,14 @@ public class GUIPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(MnAcercaDe);
+
+        jMenuItem10.setText("Sobre Empresa");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem10);
 
         jMenuBar1.add(jMenu5);
 
@@ -219,6 +228,13 @@ public class GUIPrincipal extends javax.swing.JFrame {
         gui.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        Acueducto acueducto = Acueducto.getAcueducto();
+
+        JOptionPane.showMessageDialog(this, acueducto.toString());
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -260,6 +276,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
