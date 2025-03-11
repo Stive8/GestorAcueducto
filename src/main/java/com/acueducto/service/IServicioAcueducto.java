@@ -26,7 +26,7 @@ public interface IServicioAcueducto {
 
     public void actualizarResidencial(int index, int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo);
 
-    public void actualizarComercial(int index, String tipoComercio, double impuesto, String representanteLegal, LicenciaComercial licenciaComercial, String propietario, String direccion, LocalDate fechaRegistro, int estrato, double consumo);
+    public void actualizarComercial(int index, String tipoComercio, double impuesto, String representanteLegal, String propietario, String direccion, LocalDate fechaRegistro, int estrato, double consumo);
 
     public int incrementarId();
 

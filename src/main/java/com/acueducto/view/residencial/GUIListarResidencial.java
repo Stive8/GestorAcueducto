@@ -21,8 +21,6 @@ public class GUIListarResidencial extends javax.swing.JFrame implements ICambiab
         btnGrupo.add(rbtnActivos);
         btnGrupo.add(rbtnInactivos);
         btnGrupo.add(rbtnTodos);
-        listarTodos();
-
     }
 
     @Override

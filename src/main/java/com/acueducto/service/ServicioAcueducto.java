@@ -62,7 +62,7 @@ public class ServicioAcueducto implements IServicioAcueducto {
 
     @Override
     public void actualizarComercial(int index, String tipoComercio, double impuesto, String representanteLegal,
-            LicenciaComercial licenciaComercial, String propietario, String direccion,
+            String propietario, String direccion,
             LocalDate fechaRegistro, int estrato, double consumo) {
 
         Comercial com = (Comercial) predios.get(index);
@@ -70,7 +70,6 @@ public class ServicioAcueducto implements IServicioAcueducto {
         com.setTipoComercio(tipoComercio);
         com.setImpuesto(impuesto);
         com.setRepresentanteLegal(representanteLegal);
-        com.setLicenciaComercial(licenciaComercial);
         com.setPropietario(propietario);
         com.setDireccion(direccion);
         com.setFechaRegistro(fechaRegistro);

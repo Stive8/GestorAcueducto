@@ -311,7 +311,7 @@ public class GUIActualizarComercial extends javax.swing.JFrame {
             }
 
             // Llamar al servicio con los datos validados
-            servicioAcueducto.actualizarComercial(id - 1, tipoComercio, impuesto, representanteLegal, null,
+            servicioAcueducto.actualizarComercial(id - 1, tipoComercio, impuesto, representanteLegal,
                     propietario, direccion, fechaRegistro, estrato, consumo);
 
             // Confirmar éxito

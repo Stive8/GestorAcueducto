@@ -21,8 +21,6 @@ public class GUIListarComercial extends javax.swing.JFrame implements ICambiable
         btnGrupo.add(rbtnActivos);
         btnGrupo.add(rbtnInactivos);
         btnGrupo.add(rbtnTodos);
-        listarTodos();
-
     }
 
     @Override
