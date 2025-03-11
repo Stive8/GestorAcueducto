@@ -10,11 +10,12 @@ import javax.swing.JOptionPane;
 
 public class GUICrearComercial extends javax.swing.JFrame {
 
-    private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
+    private ServicioAcueducto servicioAcueducto;
 
-    public GUICrearComercial() {
+    public GUICrearComercial(ServicioAcueducto servicioAcueducto) {
         initComponents();
         setLocationRelativeTo(null);
+        this.servicioAcueducto = servicioAcueducto;
         txtEstadoCuenta.setText("AC");
     }
 
@@ -210,31 +211,70 @@ public class GUICrearComercial extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         try {
+            // Obtener valores de los campos
             String propietario = txtPropietario.getText().trim();
             String direccion = txtDireccion.getText().trim();
             String estadoCuenta = txtEstadoCuenta.getText().trim();
-            int estrato = Integer.parseInt(jComboBoxEstrato.getSelectedItem().toString());
-            double consumo = Double.parseDouble(txtConsumo.getText().trim());
             String tipoComercio = txtTiempoComercio.getText().trim();
-            double impuesto = Double.parseDouble(txtImpuesto.getText().trim());
             String representanteLegal = txtRepresentanteLegal.getText().trim();
 
-            Comercial comercial = servicioAcueducto.crearComercial(tipoComercio, impuesto, representanteLegal, null, propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
+            // Validaciones de campos vacíos
+            if (propietario.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El Propietario no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (direccion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (estadoCuenta.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El estado de cuenta no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (tipoComercio.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El Tipo de Comercio no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (representanteLegal.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El Representante Legal no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            
+            // Validar selección del estrato
+            String estratoSeleccionado = jComboBoxEstrato.getSelectedItem().toString();
+            if (estratoSeleccionado.equalsIgnoreCase("Seleccione una opción")) {
+                JOptionPane.showMessageDialog(this, "Debe escoger un estrato válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            int estrato = Integer.parseInt(estratoSeleccionado);
+
+            // Validaciones numéricas (consumo e impuesto deben ser mayores a 0)
+            double consumo = Double.parseDouble(txtConsumo.getText().trim());
+            if (consumo <= 0) {
+                JOptionPane.showMessageDialog(this, "El consumo debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            double impuesto = Double.parseDouble(txtImpuesto.getText().trim());
+            if (impuesto <= 0) {
+                JOptionPane.showMessageDialog(this, "El impuesto debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Comercial comercial = servicioAcueducto.crearComercial(tipoComercio, impuesto, representanteLegal, null, propietario,
+                    direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
+
             GUICrearLicenciaComercial gui = new GUICrearLicenciaComercial(comercial, servicioAcueducto);
             gui.setVisible(true);
+
             limpiarCampos();
-            
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error: Ingrese valores validos para el Consumo, Subsidio y Estrato.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (PredioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: Ingrese valores válidos para el Consumo, Impuesto o Estrato.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void limpiarCampos(){
+    private void limpiarCampos() {
         txtPropietario.setText("");
         txtDireccion.setText("");
         txtEstadoCuenta.setText("AC");
@@ -244,10 +284,10 @@ public class GUICrearComercial extends javax.swing.JFrame {
         txtRepresentanteLegal.setText("");
         txtPropietario.setText("");
         jComboBoxEstrato.setSelectedIndex(0);
-        
+
     }
-    
-    
+
+
     private void txtPropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPropietarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPropietarioActionPerformed
@@ -280,40 +320,6 @@ public class GUICrearComercial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRepresentanteLegalActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUICrearComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUICrearComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUICrearComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUICrearComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUICrearComercial().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;

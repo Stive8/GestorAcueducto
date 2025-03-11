@@ -4,21 +4,32 @@ import com.acueducto.model.Predio;
 import com.acueducto.model.Residencial;
 import com.acueducto.service.IServicioAcueducto;
 import com.acueducto.service.ServicioAcueducto;
+import com.acueducto.view.ICambiable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class GUIListarResidencial extends javax.swing.JFrame {
+public class GUIListarResidencial extends javax.swing.JFrame implements ICambiable {
 
-    private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
+    private ServicioAcueducto servicioAcueducto;
 
-    public GUIListarResidencial() {
+    public GUIListarResidencial(ServicioAcueducto servicioAcueducto) {
         initComponents();
         setLocationRelativeTo(null);
+        this.servicioAcueducto = servicioAcueducto;
+        servicioAcueducto.registarGui(this);
         btnGrupo.add(rbtnActivos);
         btnGrupo.add(rbtnInactivos);
         btnGrupo.add(rbtnTodos);
+        listarTodos();
 
+    }
+
+    @Override
+    public void cambio() {
+        System.out.println("GUIListarResidencial recibió la notificación de cambio.");
+        listarTodos();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -103,6 +114,40 @@ public class GUIListarResidencial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listarTodos();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void rbtnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnTodosActionPerformed
+
+    private void setResidencialesToTable(List<Residencial> residenciales) {
+
+        DefaultTableModel model = (DefaultTableModel) tblResidencial.getModel();
+        model.setRowCount(0); // Limpiar la tabla
+
+        for (Residencial red : residenciales) {
+            Object[] row = {
+                red.getId(),
+                red.getPropietario(),
+                red.getDireccion(),
+                red.getFechaRegistro(),
+                red.getEstadoCuenta(),
+                red.getEstrato(),
+                red.getConsumo(),
+                red.getSubsidio(),
+                red.getTipoVivienda(),
+                red.calcularPago()
+            };
+            model.addRow(row);
+        }
+
+        model.fireTableDataChanged(); // Notificar a la tabla que los datos cambiaron
+    }
+
+    private void listarTodos() {
+        System.out.println("LISTANDO RESIDENCIALES");
+
         List<Predio> predios = servicioAcueducto.getResidencial(); // Devuelve List<Predio>
         List<Residencial> residenciales = new ArrayList<>();
 
@@ -132,67 +177,6 @@ public class GUIListarResidencial extends javax.swing.JFrame {
 
         setResidencialesToTable(filtrados);
 
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void rbtnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnTodosActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIListarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIListarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIListarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIListarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIListarResidencial().setVisible(true);
-            }
-        });
-    }
-
-    private void setResidencialesToTable(List<Residencial> residenciales) {
-
-        DefaultTableModel model = (DefaultTableModel) tblResidencial.getModel();
-        model.setRowCount(0);
-        for (Residencial red : residenciales) {
-            Object[] row = {
-                red.getId(),
-                red.getPropietario(),
-                red.getDireccion(),
-                red.getFechaRegistro(),
-                red.getEstadoCuenta(),
-                red.getEstrato(),
-                red.getConsumo(),
-                red.getSubsidio(),
-                red.getTipoVivienda(),
-                red.calcularPago()
-            };
-            model.addRow(row);
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

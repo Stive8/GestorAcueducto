@@ -10,14 +10,12 @@ import javax.swing.JOptionPane;
 
 public class GUIActualizarResidencial extends javax.swing.JFrame {
 
-    IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
+    ServicioAcueducto servicioAcueducto;
     Predio predio;
 
-    /**
-     * Creates new form GUIActualizarResidencial
-     */
-    public GUIActualizarResidencial() {
+    public GUIActualizarResidencial(ServicioAcueducto servicioAcueducto) {
         initComponents();
+        this.servicioAcueducto = servicioAcueducto;
         setLocationRelativeTo(null);
 
     }
@@ -295,31 +293,95 @@ public class GUIActualizarResidencial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
         try {
-            int id = Integer.parseInt(txtId.getText());
+            // Validar que el ID no esté vacío y sea un número válido
+            if (txtId.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            int id = Integer.parseInt(txtId.getText().trim());
 
-            int subsidio = jComboBox2.getSelectedItem().toString().equalsIgnoreCase("No Aplica") ? 0 : Integer.parseInt(jComboBox2.getSelectedItem().toString());
-            String tipoVivienda = txtTipo.getText().toString();
-            String propietario = txtPropietario.getText().toString();
-            String direccion = txtDireccion.getText().toString();
-            String estadoCuenta = txtEstado.getText().toString();
-            int estrato = Integer.parseInt(jComboBox1.getSelectedItem().toString());
-            double consumo = Double.parseDouble(txtConsumo.getText().toString());
-            Residencial residencial = servicioAcueducto.crearResidencial(subsidio, tipoVivienda, propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
-            servicioAcueducto.adicionarResidencial(residencial);
-            LocalDate fechaRegistro = LocalDate.parse(txtFecha.getText().toString());
+            // Obtener y validar campos de texto
+            String propietario = txtPropietario.getText().trim();
+            String direccion = txtDireccion.getText().trim();
+            String estadoCuenta = txtEstado.getText().trim();
+            String tipoVivienda = txtTipo.getText().trim();
+            String fechaTexto = txtFecha.getText().trim();
 
+            if (propietario.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El Propietario no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (direccion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (estadoCuenta.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El estado de cuenta no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (tipoVivienda.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El tipo de vivienda no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (fechaTexto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar una fecha válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validar fecha
+            LocalDate fechaRegistro;
+            try {
+                fechaRegistro = LocalDate.parse(fechaTexto);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto. Use AAAA-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validar estrato
+            String estratoSeleccionado = jComboBox1.getSelectedItem().toString();
+            if (estratoSeleccionado.equalsIgnoreCase("Seleccione una opción")) {
+                JOptionPane.showMessageDialog(this, "Debe escoger un estrato válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            int estrato = Integer.parseInt(estratoSeleccionado);
+
+            // Validar subsidio
+            String subsidioSeleccionado = jComboBox2.getSelectedItem().toString();
+            int subsidio = 0; // Valor por defecto si es "No Aplica"
+            if (!subsidioSeleccionado.equalsIgnoreCase("No Aplica")) {
+                try {
+                    subsidio = Integer.parseInt(subsidioSeleccionado);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar un subsidio válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            // Validar consumo
+            double consumo;
+            try {
+                consumo = Double.parseDouble(txtConsumo.getText().trim());
+                if (consumo <= 0) {
+                    JOptionPane.showMessageDialog(this, "El consumo debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para el consumo.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Llamar al servicio con los datos validados
             servicioAcueducto.actualizarResidencial(id - 1, subsidio, tipoVivienda, propietario, direccion, fechaRegistro, estadoCuenta, estrato, consumo);
-            JOptionPane.showMessageDialog(this, "Predio Residencial actualizado exitosamente");
 
+            // Confirmar éxito
+            JOptionPane.showMessageDialog(this, "Predio Residencial actualizado exitosamente.");
+
+            // Actualizar la vista
             consultar();
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (PredioException ex) {
-            JOptionPane.showMessageDialog(this, "No se ha encontrado el Predio", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -383,41 +445,6 @@ public class GUIActualizarResidencial extends javax.swing.JFrame {
 
         return index;
 
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIActualizarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIActualizarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIActualizarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIActualizarResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIActualizarResidencial().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

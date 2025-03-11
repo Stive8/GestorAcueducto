@@ -4,20 +4,59 @@ import com.acueducto.model.Comercial;
 import com.acueducto.model.Predio;
 import com.acueducto.service.IServicioAcueducto;
 import com.acueducto.service.ServicioAcueducto;
+import com.acueducto.view.ICambiable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class GUIListarComercial extends javax.swing.JFrame {
+public class GUIListarComercial extends javax.swing.JFrame implements ICambiable {
 
-    private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
+    private ServicioAcueducto servicioAcueducto;
 
-    public GUIListarComercial() {
+    public GUIListarComercial(ServicioAcueducto servicioAcueducto) {
         initComponents();
         setLocationRelativeTo(null);
+        this.servicioAcueducto = servicioAcueducto;
+        servicioAcueducto.registarGui(this);
         btnGrupo.add(rbtnActivos);
         btnGrupo.add(rbtnInactivos);
         btnGrupo.add(rbtnTodos);
+        listarTodos();
+
+    }
+
+    @Override
+    public void cambio() {
+        System.out.println("GUIListarResidencial recibió la notificación de cambio.");
+        listarTodos();
+
+    }
+
+    public void listarTodos() {
+
+        // TODO add your handling code here:
+        List<Predio> comerciales = servicioAcueducto.getComercial();
+        List<Predio> filtrados = new ArrayList<>();
+
+        // Filtrar según el estado de cuenta
+        if (rbtnActivos.isSelected()) {
+            for (Predio com : comerciales) {
+                if (com.getEstadoCuenta().equalsIgnoreCase("AC")) {
+                    filtrados.add(com);
+                }
+            }
+        } else if (rbtnInactivos.isSelected()) {
+            for (Predio com : comerciales) {
+                if (com.getEstadoCuenta().equalsIgnoreCase("INAC")) {
+                    filtrados.add(com);
+                }
+            }
+        } else {
+            filtrados = comerciales;
+        }
+
+        // Actualizar la tabla con los datos filtrados
+        setComercialesToTable(filtrados);
 
     }
 
@@ -97,29 +136,8 @@ public class GUIListarComercial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        // TODO add your handling code here:
-        List<Predio> comerciales = servicioAcueducto.getComercial();
-        List<Predio> filtrados = new ArrayList<>();
 
-        // Filtrar según el estado de cuenta
-        if (rbtnActivos.isSelected()) {
-            for (Predio com : comerciales) {
-                if (com.getEstadoCuenta().equalsIgnoreCase("AC")) {
-                    filtrados.add(com);
-                }
-            }
-        } else if (rbtnInactivos.isSelected()) {
-            for (Predio com : comerciales) {
-                if (com.getEstadoCuenta().equalsIgnoreCase("INAC")) {
-                    filtrados.add(com);
-                }
-            }
-        } else {
-            filtrados = comerciales;
-        }
-
-        // Actualizar la tabla con los datos filtrados
-        setComercialesToTable(filtrados);
+        listarTodos();
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void setComercialesToTable(List<Predio> predios) {
@@ -129,7 +147,6 @@ public class GUIListarComercial extends javax.swing.JFrame {
         for (Predio pre : predios) {
             if (pre instanceof Comercial) {
                 Comercial comercial = (Comercial) pre;
-
                 Object[] row = {
                     comercial.getId(),
                     comercial.getPropietario(),
@@ -147,42 +164,10 @@ public class GUIListarComercial extends javax.swing.JFrame {
                 model.addRow(row);
             }
         }
+        model.fireTableDataChanged();  // Llamarlo solo una vez
+
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIListarComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIListarComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIListarComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIListarComercial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIListarComercial().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGrupo;

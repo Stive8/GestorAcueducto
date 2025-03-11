@@ -4,6 +4,7 @@ import com.acueducto.exceptions.PredioException;
 import com.acueducto.model.Residencial;
 import com.acueducto.service.IServicioAcueducto;
 import com.acueducto.service.ServicioAcueducto;
+import com.acueducto.view.ICambiable;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,11 +12,12 @@ import javax.swing.JOptionPane;
 
 public class GUICrearResidencial extends javax.swing.JFrame {
 
-    private IServicioAcueducto servicioAcueducto = new ServicioAcueducto();
+    private ServicioAcueducto servicioAcueducto;
 
-    public GUICrearResidencial() {
+    public GUICrearResidencial(ServicioAcueducto servicioAcueducto) {
+        this.servicioAcueducto = servicioAcueducto;
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(this);
 
     }
 
@@ -157,69 +159,87 @@ public class GUICrearResidencial extends javax.swing.JFrame {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
 
         try {
-            int subsidio = jComboBox2.getSelectedItem().toString().equalsIgnoreCase("No Aplica") ? 0 : Integer.parseInt(jComboBox2.getSelectedItem().toString());
-            String tipoVivienda = txtTipoVivienda.getText().toString();
-            String propietario = txtPropietario.getText().toString();
-            String direccion = txtDireccion.getText().toString();
-            String estadoCuenta = txtEstado.getText().toString();
-            int estrato = Integer.parseInt(jComboBox1.getSelectedItem().toString());
-            double consumo = Double.parseDouble(txtConsumo.getText().toString());
-            Residencial residencial = servicioAcueducto.crearResidencial(subsidio, tipoVivienda, propietario, direccion, LocalDate.now(), estadoCuenta, estrato, consumo);
+            // Obtener valores de los campos
+            String propietario = txtPropietario.getText().trim();
+            String direccion = txtDireccion.getText().trim();
+            String estadoCuenta = txtEstado.getText().trim();
+            String tipoVivienda = txtTipoVivienda.getText().trim();
+
+            // Validaciones de campos vacíos
+            if (propietario.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El Propietario no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (direccion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (estadoCuenta.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El estado de cuenta no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (tipoVivienda.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El tipo de vivienda no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validar selección del estrato
+            String estratoSeleccionado = jComboBox1.getSelectedItem().toString();
+            if (estratoSeleccionado.equalsIgnoreCase("Seleccione una opción")) {
+                JOptionPane.showMessageDialog(this, "Debe escoger un estrato válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            int estrato = Integer.parseInt(estratoSeleccionado);
+
+            // Validar selección del subsidio
+            String subsidioSeleccionado = jComboBox2.getSelectedItem().toString();
+            int subsidio = 0; // Valor por defecto si es "No Aplica"
+            if (!subsidioSeleccionado.equalsIgnoreCase("No Aplica")) {
+                try {
+                    subsidio = Integer.parseInt(subsidioSeleccionado);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar un subsidio válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            // Validaciones numéricas (consumo debe ser mayor a 0)
+            double consumo = Double.parseDouble(txtConsumo.getText().trim());
+            if (consumo <= 0) {
+                JOptionPane.showMessageDialog(this, "El consumo debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear objeto Residencial
+            Residencial residencial = servicioAcueducto.crearResidencial(subsidio, tipoVivienda, propietario,
+                    direccion, LocalDate.now(), estadoCuenta,
+                    estrato, consumo);
+
             servicioAcueducto.adicionarResidencial(residencial);
 
+            // Confirmación de creación exitosa
             JOptionPane.showMessageDialog(this, "Predio Residencial creado exitosamente");
+
+            // Limpiar campos después de la creación
             limpiarCampos();
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error: Ingrese valores validos para el Consumo, Subsidio y Estrato.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (PredioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: Ingrese valores válidos para el Consumo, Subsidio y Estrato.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
 
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    public void limpiarCampos(){
+    public void limpiarCampos() {
         txtTipoVivienda.setText("");
         txtPropietario.setText("");
         txtDireccion.setText("");
         jComboBox1.setSelectedIndex(0);
         txtConsumo.setText("");
         jComboBox2.setSelectedIndex(0);
-        
-    }
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUICrearResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUICrearResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUICrearResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUICrearResidencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUICrearResidencial().setVisible(true);
-            }
-        });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;

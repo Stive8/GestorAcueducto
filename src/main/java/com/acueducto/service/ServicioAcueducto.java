@@ -5,6 +5,7 @@ import com.acueducto.model.Comercial;
 import com.acueducto.model.LicenciaComercial;
 import com.acueducto.model.Predio;
 import com.acueducto.model.Residencial;
+import com.acueducto.view.ICambiable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ServicioAcueducto implements IServicioAcueducto {
 
     private static List<Predio> predios = new ArrayList<>();
+    private List<ICambiable> guis = new ArrayList<>();
     private static int countId = 1;
 
     @Override
@@ -20,35 +22,7 @@ public class ServicioAcueducto implements IServicioAcueducto {
     }
 
     @Override
-    public Comercial crearComercial(String tipoComercio, double impuesto, String representanteLegal, LicenciaComercial licenciaComercial, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) throws PredioException {
-
-        if (propietario == null || propietario.trim().isEmpty()) {
-            throw new PredioException("El Propietario no puede estar vacío.");
-        }
-
-        if (direccion == null || direccion.trim().isEmpty()) {
-            throw new PredioException("La direccion no puede estar vacío.");
-        }
-
-        if (String.valueOf(estrato).equalsIgnoreCase("Seleccione una opcion")) {
-            throw new PredioException("Debe escoger un estrato válido.");
-        }
-
-        if (consumo <= 0) {
-            throw new PredioException("El consumo debe ser mayor que cero.");
-        }
-
-        if (impuesto <= 0) {
-            throw new PredioException("El consumo debe ser mayor que cero.");
-        }
-
-        if (representanteLegal == null || propietario.trim().isEmpty()) {
-            throw new PredioException("El Representante Legal no puede estar vacío.");
-        }
-
-        if (tipoComercio == null || propietario.trim().isEmpty()) {
-            throw new PredioException("El Tipo de Comercio no puede estar vacío.");
-        }
+    public Comercial crearComercial(String tipoComercio, double impuesto, String representanteLegal, LicenciaComercial licenciaComercial, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
 
         Comercial comercial = new Comercial(0, incrementarId(), tipoComercio, impuesto, representanteLegal, licenciaComercial, propietario, direccion, fechaRegistro, estadoCuenta, estrato, consumo);
         double valorFactura = comercial.calcularPago();
@@ -57,73 +31,18 @@ public class ServicioAcueducto implements IServicioAcueducto {
     }
 
     @Override
-    public Residencial crearResidencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) throws PredioException {
-
-        if (propietario == null || propietario.trim().isEmpty()) {
-            throw new PredioException("El Propietario no puede estar vacío.");
-        }
-
-        if (direccion == null || direccion.trim().isEmpty()) {
-            throw new PredioException("La direccion no puede estar vacío.");
-        }
-
-        if (String.valueOf(estrato).equalsIgnoreCase("Seleccione una opcion")) {
-            throw new PredioException("Debe escoger un estrato válido.");
-        }
-
-        if (consumo <= 0) {
-            throw new PredioException("El consumo debe ser mayor que cero.");
-        }
-
-        if (String.valueOf(subsidio).equalsIgnoreCase("Seleccione una opcion")) {
-            throw new PredioException("Debe escoger un subsidio válido.");
-        }
-        if (String.valueOf(subsidio).equalsIgnoreCase("No Aplica")) {
-            subsidio = 0;
-        }
-
-        if (tipoVivienda == null || tipoVivienda.trim().isEmpty()) {
-            throw new PredioException("El tipo de vivienda no puede estar vacío.");
-        }
+    public Residencial crearResidencial(int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
 
         Residencial residencial = new Residencial(0, incrementarId(), subsidio, tipoVivienda, propietario, direccion, fechaRegistro, estadoCuenta, estrato, consumo);
         double valorFactura = residencial.calcularPago();
         residencial.setValorFactura(valorFactura);
-
         return residencial;
     }
 
     @Override
-    public void actualizarResidencial(int index, int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) throws PredioException {
+    public void actualizarResidencial(int index, int subsidio, String tipoVivienda, String propietario, String direccion, LocalDate fechaRegistro, String estadoCuenta, int estrato, double consumo) {
 
-        if (propietario == null || propietario.trim().isEmpty()) {
-            throw new PredioException("El Propietario no puede estar vacío.");
-        }
-
-        if (direccion == null || direccion.trim().isEmpty()) {
-            throw new PredioException("La direccion no puede estar vacío.");
-        }
-
-        if (String.valueOf(estrato).equalsIgnoreCase("Seleccione una opcion")) {
-            throw new PredioException("Debe escoger un estrato válido.");
-        }
-
-        if (consumo <= 0) {
-            throw new PredioException("El consumo debe ser mayor que cero.");
-        }
-
-        if (String.valueOf(subsidio).equalsIgnoreCase("Seleccione una opcion")) {
-            throw new PredioException("Debe escoger un subsidio válido.");
-        }
-        if (String.valueOf(subsidio).equalsIgnoreCase("No Aplica")) {
-            subsidio = 0;
-        }
-
-        if (tipoVivienda == null || tipoVivienda.trim().isEmpty()) {
-            throw new PredioException("El tipo de vivienda no puede estar vacío.");
-        }
-
-        Residencial pre = (Residencial)predios.get(index);
+        Residencial pre = (Residencial) predios.get(index);
         pre.setConsumo(consumo);
         pre.setDireccion(direccion);
         pre.setEstadoCuenta(estadoCuenta);
@@ -132,9 +51,37 @@ public class ServicioAcueducto implements IServicioAcueducto {
         pre.setPropietario(propietario);
         pre.setSubsidio(subsidio);
         pre.setTipoVivienda(tipoVivienda);
+
         double valorFactura = pre.calcularPago();
         pre.setValorFactura(valorFactura);
 
+        System.out.println("Residencial actualizado: " + pre.getId());
+        cambio(); // Notificar cambios
+
+    }
+
+    @Override
+    public void actualizarComercial(int index, String tipoComercio, double impuesto, String representanteLegal,
+            LicenciaComercial licenciaComercial, String propietario, String direccion,
+            LocalDate fechaRegistro, int estrato, double consumo) {
+
+        Comercial com = (Comercial) predios.get(index);
+
+        com.setTipoComercio(tipoComercio);
+        com.setImpuesto(impuesto);
+        com.setRepresentanteLegal(representanteLegal);
+        com.setLicenciaComercial(licenciaComercial);
+        com.setPropietario(propietario);
+        com.setDireccion(direccion);
+        com.setFechaRegistro(fechaRegistro);
+        com.setEstrato(estrato);
+        com.setConsumo(consumo);
+
+        double valorFactura = com.calcularPago();
+        com.setValorFactura(valorFactura);
+
+        System.out.println("Comercial actualizado: " + com.getId());
+        cambio(); // Notificar cambios
     }
 
     @Override
@@ -153,11 +100,14 @@ public class ServicioAcueducto implements IServicioAcueducto {
     @Override
     public void adicionarComercial(Comercial comercial) {
         predios.add(comercial);
+        cambio();
     }
 
     @Override
     public void adicionarResidencial(Residencial residencial) {
         predios.add(residencial);
+        cambio();
+
     }
 
     @Override
@@ -194,6 +144,21 @@ public class ServicioAcueducto implements IServicioAcueducto {
             }
         }
         return null;
+    }
+
+    public void registarGui(ICambiable gui) {
+        guis.add(gui);
+    }
+
+    public void desRegistrarGui(ICambiable gui) {
+        guis.remove(gui);
+    }
+
+    private void cambio() {
+        System.out.println("Notificando cambio a las GUI...");
+        for (ICambiable gui : guis) {
+            gui.cambio();
+        }
     }
 
 }
